@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /* Default weight, adjust as needed */
+  font-style: normal;
+}
+
+.active-link {
+  color: yellow; /* or any other color you want */
+}
+
+.input-text {
+  @apply w-2/3 lg:w-1/2 bg-transparent shadow-xl focus:outline-none border border-r-0 border-opacity-30 border-t-0 border-l-0 tracking-wide;
+}
+
+.placeholder-white::placeholder {
+  color: white;
+}
+
+.form-outline {
+  margin-bottom: 40px;
+}
