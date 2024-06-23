@@ -1,10 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
+import initiativeReducer from "./initiativeSlice";
+import locationReducer from "./locationSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
   user: userReducer,
+  initiative: initiativeReducer,
+  location: locationReducer,
 });
 const persistConfig = {
   key: "root",

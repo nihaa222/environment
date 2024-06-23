@@ -7,8 +7,12 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    initiatives: {
+      type: [mongoose.Schema.Types.ObjectId],
+    },
     bio: {
       type: String,
+      default: "Hello I'm an environmentalist",
     },
     instaLink: {
       type: String,
@@ -19,9 +23,12 @@ const userSchema = new mongoose.Schema(
     facebookLink: {
       type: String,
     },
-    fullname: {
+    named: {
       type: String,
       required: true,
+    },
+    title: {
+      type: String,
     },
     email: {
       type: String,
@@ -36,7 +43,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "/Profile.png",
     },
+    joinedInitiativeId: [],
+    joinedUser: [],
   },
+
   { timestamps: true }
 );
 

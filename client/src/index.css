@@ -3,10 +3,14 @@
 @tailwind utilities;
 
 body {
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400; /* Default weight, adjust as needed */
-  font-style: normal;
+  font-family: sans-serif;
+
+  overflow-x: hidden;
+  background-color: #ecfdf5;
+}
+
+.slick-slide > div {
+  margin: 0 10px;
 }
 
 .active-link {
@@ -22,5 +26,84 @@ body {
 }
 
 .form-outline {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+}
+.custom-select option {
+  width: 100px; /* Set your desired width */
+}
+
+.card-title {
+  white-space: normal; /* Allow text wrapping */
+}
+
+.map {
+  height: 100%;
+}
+
+.slider .slide-button#prev-slide {
+  display: none;
+}
+
+.slide-button#next-slide {
+  display: block;
+}
+
+.outline-none {
+  outline: none !important;
+}
+
+.slider .category-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  justify-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.max-w-sm {
+  width: 250px; /* Set the desired width */
+  height: 350px; /* Set the desired height */
+}
+
+/* dashboard */
+.container-img .image-list {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.image-list2 {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.container-img .image-list img {
+  width: 140px;
+  height: 100px;
+}
+
+.container-img .image-list {
+  scrollbar-width: none;
+}
+.container-img .image-list::-webkit-scrollbar {
+  display: none;
+}
+
+.container-img2 .image-list2 img {
+  width: 140px;
+  height: 100px;
+}
+
+/* .slide-button#prev-slide {
+  display: none;
+} */
+
+.container-img2 .image-list2 {
+  scrollbar-width: none;
+}
+.container-img2 .image-list2::-webkit-scrollbar {
+  display: none;
 }

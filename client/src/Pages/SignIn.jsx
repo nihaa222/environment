@@ -8,8 +8,12 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, error: errorMessage } = useSelector((state) => state.user);
-  console.log(errorMessage);
+
   const [formdata, setFormData] = useState({});
+
+  useEffect(() => {
+    dispatch(signInStart());
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formdata, [e.target.id]: e.target.value });
@@ -42,7 +46,7 @@ const SignIn = () => {
     <div
       className=""
       style={{
-        backgroundImage: 'url("/bg.png")',
+        backgroundImage: 'url("/bg200.jpg")',
         backgroundSize: "cover",
         backgroundPosition: "center",
         width: "100vw",
@@ -65,14 +69,14 @@ const SignIn = () => {
 
           <input
             id="email"
-            className="input-text placeholder-white"
+            className="input-text placeholder-white text-gray-800"
             type="email"
             placeholder="email"
             onChange={handleChange}
           />
           <input
             id="password"
-            className="input-text placeholder-white"
+            className="input-text placeholder-white text-gray-800"
             type="password"
             placeholder="password"
             onChange={handleChange}

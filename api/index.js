@@ -1,7 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import UserRouter from "./routes/auth.route.js";
+import authRoutes from "./routes/auth.route.js";
+import userRoutes from "./routes/user.route.js";
+import initiativeRoutes from "./routes/initiative.route.js";
+import cookieParser from "cookie-parser";
+
 dotenv.config();
 import cors from "cors";
 
@@ -10,14 +14,18 @@ mongoose.connect(process.env.MONGO).then(() => {
 });
 
 const app = express();
+
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
+app.use(cookieParser());
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000!");
 });
 
-app.use("/api/auth", UserRouter);
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/initiative", initiativeRoutes);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statuCode || 500;

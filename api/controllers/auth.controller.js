@@ -4,25 +4,16 @@ import jwt from "jsonwebtoken";
 import { errorHandler } from "../utils/error.js";
 
 export const signup = async (req, res, next) => {
-  const { username, email, password, fullname } = req.body;
-
-  if (
-    !username ||
-    !email ||
-    !password ||
-    !fullname ||
-    username === "" ||
-    email === "" ||
-    password === "" ||
-    fullname === ""
-  ) {
-    next({ status: 500, message: "All fields are required" });
+  const { username, email, password, named, title } = req.body;
+  if (!username || !email || !password || !named || !title) {
+    return next({ status: 400, message: "All fields are required" });
   }
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
 
   const newUser = new User({
-    fullname,
+    named,
+    title,
     username,
     email,
     password: hashedPassword,
@@ -30,7 +21,7 @@ export const signup = async (req, res, next) => {
 
   try {
     await newUser.save();
-    res.json("Signup successful");
+    res.status(201).json({ message: "Signup successful" });
   } catch (error) {
     next(error);
   }
@@ -52,10 +43,7 @@ export const signin = async (req, res, next) => {
     if (!validPassword) {
       return next(errorHandler(400, "Invalid password"));
     }
-    const token = jwt.sign(
-      { id: validUser._id, isAdmin: validUser.isAdmin },
-      process.env.JWT_SECRET
-    );
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
 
     const { password: pass, ...rest } = validUser._doc;
 

@@ -1,40 +1,70 @@
 import { Alert, Button } from "flowbite-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  useEffect(() => {
+    setError(null);
+  }, []);
   const navigate = useNavigate();
   const [formdata, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  console.log(formdata);
+
+  const handleNameChange = (e) => {
+    const name = e.target.value.trim();
+    const initial = name.split("")[0]?.toUpperCase() + name.slice(1);
+    console.log(initial);
+    console.log(initial);
+
+    setFormData({ ...formdata, [e.target.id]: initial });
+  };
+
+  const handleUsernameChange = (e) => {
+    const username = e.target.value.trim();
+
+    const unitial = username.split("")[0]?.toLowerCase() + username.slice(1);
+
+    setFormData({ ...formdata, [e.target.id]: unitial });
+  };
+  const handleTitleChange = (e) => {
+    const name = e.target.value.trim();
+    const titial = name.split("")[0]?.toUpperCase() + name.slice(1);
+
+    setFormData({ ...formdata, [e.target.id]: titial });
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formdata, [e.target.id]: e.target.value });
   };
   const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    if (formdata.username && formdata.username.length > 8) {
+      setError("Username should be less than or equal to 8 characters");
+      return;
+    }
     try {
       setLoading(true);
-      setError(null);
-      e.preventDefault();
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formdata),
       });
       const data = await res.json();
-
+      setLoading(false);
       if (res.ok) {
         navigate("/sign-in");
-      }
-      if (!res.ok) {
+      } else {
         setError(data.message);
-        return;
       }
     } catch (error) {
-      return setError(error.message);
+      setLoading(false);
+      setError(error.message);
     }
   };
 
-  console.log(formdata);
   return (
     <div
       className=""
@@ -60,22 +90,31 @@ const SignUp = () => {
             SignUp form
           </div>
           <input
-            id="fullname"
+            id="named"
             type="text"
-            placeholder="Full Name"
-            className="input-text placeholder-white outline-none"
-            onChange={handleChange}
+            placeholder="Name"
+            className="input-text placeholder-white outline-none text-gray-800"
+            onChange={handleNameChange}
           />
+          <input
+            id="title"
+            type="text"
+            placeholder="Title"
+            className="input-text placeholder-white outline-none text-gray-800"
+            onChange={handleTitleChange}
+          />
+
           <input
             id="username"
             type="text"
             placeholder="username"
-            className="input-text placeholder-white outline-none"
-            onChange={handleChange}
+            autoComplete="off"
+            className="input-text placeholder-white outline-none  text-gray-800"
+            onChange={handleUsernameChange}
           />
           <input
             id="email"
-            className="input-text placeholder-white"
+            className="input-text placeholder-white text-gray-800"
             type="email"
             placeholder="email"
             onChange={handleChange}
